@@ -3,4 +3,14 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+
+    // select_players view
+    <string name="selectplayers">Select Players</string>
+    <string name="newplayerbutton">New Player</string>
+
+
+    // input_scores view
+    <string name="holetext">Hole</string>
+    <string name="partext">Par</string>
 </resources>
