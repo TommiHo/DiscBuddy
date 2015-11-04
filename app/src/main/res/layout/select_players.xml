@@ -10,8 +10,7 @@
         android:text="coursename"
         android:id="@+id/coursename"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,9 +18,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/selectplayers"
         android:id="@+id/selectplayers"
+        android:layout_marginTop="23dp"
         android:layout_below="@+id/coursename"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp" />
+        android:layout_centerHorizontal="true" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -30,14 +29,33 @@
         android:layout_below="@+id/selectplayers"
         android:choiceMode="multipleChoice"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="100dp" />
+        android:layout_marginBottom="140dp"
+        android:layout_marginTop="10dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/newplayerbutton"
         android:id="@+id/newplayerbutton"
+        android:layout_marginBottom="24dp"
+        android:layout_above="@+id/startgamebutton"
+        android:layout_alignEnd="@+id/coursename" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/startgamebutton"
+        android:id="@+id/startgamebutton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="31dp" />
+        android:layout_alignEnd="@+id/newplayerbutton" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player1"
+        android:id="@+id/player1"
+        android:layout_marginTop="23dp"
+        android:layout_alignTop="@+id/pelaajalista"
+        android:layout_alignEnd="@+id/selectplayers"
+        android:checked="false" />
 </RelativeLayout>

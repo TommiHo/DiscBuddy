@@ -8,9 +8,12 @@
     // select_players view
     <string name="selectplayers">Select Players</string>
     <string name="newplayerbutton">New Player</string>
+    <string name="startgamebutton">Start game</string>
 
 
     // input_scores view
     <string name="holetext">Hole</string>
     <string name="partext">Par</string>
+    <string name="plusbutton">+</string>
+    <string name="minusbutton">-</string>
 </resources>
