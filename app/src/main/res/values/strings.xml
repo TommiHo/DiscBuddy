@@ -16,4 +16,9 @@
     <string name="partext">Par</string>
     <string name="plusbutton">+</string>
     <string name="minusbutton">-</string>
+
+    //scorecard view
+    <string name="scorecardheading">Scorecard</string>
+
+
 </resources>
