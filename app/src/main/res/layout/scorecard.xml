@@ -4,8 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:shrinkColumns="*"  android:stretchColumns="*" android:background="#ffffff"
-    android:id="@+id/">
+    android:id="@+id/scorecard">
     <!-- Row 1 with single column -->
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </TableRow>
+
     <TableRow
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
