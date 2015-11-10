@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="coursename"
-        android:id="@+id/coursename"
+        android:id="@+id/courseTextview"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -19,10 +19,21 @@
         android:text="@string/holetext"
         android:id="@+id/holetext"
         android:layout_marginStart="35dp"
-        android:layout_below="@+id/coursename"
+        android:layout_below="@+id/courseTextview"
         android:layout_alignParentStart="true"
         android:layout_marginTop="28dp"
         android:layout_gravity="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="3"
+        android:id="@+id/par"
+        android:layout_alignTop="@+id/partext"
+        android:layout_alignEnd="@+id/courseTextview"
+        android:layout_gravity="center" />
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,53 +56,13 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="3"
-        android:id="@+id/par"
-        android:layout_alignTop="@+id/partext"
-        android:layout_alignEnd="@+id/coursename"
-        android:layout_gravity="center" />
-
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:id="@+id/holescores"
-        android:layout_below="@+id/partext"
-        android:layout_marginTop="48dp"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/minusbutton"
-        android:text="@string/minusbutton"
-        android:layout_alignTop="@+id/holescores"
-        android:layout_toStartOf="@+id/textView" />
+        android:id="@+id/scores_listView"
+        android:layout_below="@+id/holetext"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="37dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="3"
-        android:id="@+id/textView"
-        android:layout_marginStart="28dp"
-        android:layout_toEndOf="@+id/par"
-        android:textIsSelectable="false"
-        android:textSize="30dp"
-        android:layout_marginBottom="5dp"
-        android:layout_alignBottom="@+id/minusbutton" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/plusbutton"
-        android:text="@string/plusbutton"
-        android:layout_alignTop="@+id/holescores"
-        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

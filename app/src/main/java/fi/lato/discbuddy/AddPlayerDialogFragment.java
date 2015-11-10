@@ -51,7 +51,7 @@ public class AddPlayerDialogFragment extends DialogFragment{
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        final View dialogView = inflater.inflate(R.layout.add_hs, null);
+        final View dialogView = inflater.inflate(R.layout.add_player_dialog, null);
         builder.setView(dialogView)
                 .setTitle("Add a new player")
                         // Add action buttons
