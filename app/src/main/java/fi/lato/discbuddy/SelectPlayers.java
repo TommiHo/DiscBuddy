@@ -3,6 +3,7 @@ package fi.lato.discbuddy;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -30,6 +32,17 @@ public class SelectPlayers extends Activity implements AddHighscoreDialogFragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_players);
+
+        // get intent which has used to open this activity
+        Intent intent = getIntent();
+        // get data from intent
+        Bundle bundle = intent.getExtras();
+        // get phone name
+        String phone = bundle.getString("course");
+        // update text and image views to show data
+        TextView textView = (TextView) findViewById(R.id.courseTextView);
+        textView.setText(phone);
+
 
         // find list view
         listView = (ListView)  findViewById(R.id.listView);
