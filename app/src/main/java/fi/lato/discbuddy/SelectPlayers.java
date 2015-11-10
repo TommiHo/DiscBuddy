@@ -29,7 +29,7 @@ public class SelectPlayers extends Activity implements AddHighscoreDialogFragmen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.select_players);
 
         // find list view
         listView = (ListView)  findViewById(R.id.listView);
