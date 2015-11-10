@@ -23,5 +23,7 @@
     //scorecard view
     <string name="scorecardheading">Scorecard</string>
 
+    <string name="action_add">add</string>
+
 
 </resources>
