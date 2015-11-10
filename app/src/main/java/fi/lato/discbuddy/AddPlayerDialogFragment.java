@@ -13,12 +13,12 @@ import android.widget.EditText;
 /**
  * Created by tommi on 10.11.2015.
  */
-public class AddHighscoreDialogFragment extends DialogFragment{
+public class AddPlayerDialogFragment extends DialogFragment{
     // The activity that creates an instance of this dialog fragment must
     // implement this interface in order to receive event callbacks.
     // Each method passes the DialogFragment in case the host needs to query it.
     public interface DialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog, String name, int score);
+        public void onDialogPositiveClick(DialogFragment dialog, String name);
         public void onDialogNegativeClick(DialogFragment dialog);
     }
 
@@ -53,7 +53,7 @@ public class AddHighscoreDialogFragment extends DialogFragment{
         // Pass null as the parent view because its going in the dialog layout
         final View dialogView = inflater.inflate(R.layout.add_hs, null);
         builder.setView(dialogView)
-                .setTitle("Add a new Highscore")
+                .setTitle("Add a new player")
                         // Add action buttons
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
@@ -61,19 +61,15 @@ public class AddHighscoreDialogFragment extends DialogFragment{
                         // find a name and score
                         EditText editName = (EditText) dialogView.findViewById(R.id.name);
                         String name = editName.getText().toString();
-                        EditText editScore = (EditText) dialogView.findViewById(R.id.score);
-                        int score = Integer.valueOf(editScore.getText().toString());
-                        // Send the positive button event back to the host activity
-                        mListener.onDialogPositiveClick(AddHighscoreDialogFragment.this,name,score);
+                        mListener.onDialogPositiveClick(AddPlayerDialogFragment.this,name);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the negative button event back to the host activity
-                        mListener.onDialogNegativeClick(AddHighscoreDialogFragment.this);
+                        mListener.onDialogNegativeClick(AddPlayerDialogFragment.this);
                     }
                 });
         return builder.create();
     }
 }
-

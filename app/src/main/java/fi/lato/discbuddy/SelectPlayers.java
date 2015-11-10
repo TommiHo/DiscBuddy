@@ -16,13 +16,12 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by tommi on 10.11.2015.
  */
-public class SelectPlayers extends Activity implements AddHighscoreDialogFragment.DialogListener {
-    private final String DATABASE_TABLE = "highscores";
+public class SelectPlayers extends Activity implements AddPlayerDialogFragment.DialogListener {
+    private final String DATABASE_TABLE = "player";
     private final int DELETE_ID = 0;
     private SQLiteDatabase db;
     private Cursor cursor;
@@ -37,7 +36,6 @@ public class SelectPlayers extends Activity implements AddHighscoreDialogFragmen
         Intent intent = getIntent();
         // get data from intent
         Bundle bundle = intent.getExtras();
-        // get phone name
         String phone = bundle.getString("course");
         // update text and image views to show data
         TextView textView = (TextView) findViewById(R.id.courseTextView);
@@ -47,40 +45,31 @@ public class SelectPlayers extends Activity implements AddHighscoreDialogFragmen
         // find list view
         listView = (ListView)  findViewById(R.id.listView);
         // register listView's context menu (to delete row)
-        registerForContextMenu(listView);
+       registerForContextMenu(listView);
 
         // get database instance
         db = (new DatabaseOpenHelper(this)).getWritableDatabase();
         // get data with own made queryData method
         queryData();
 
-        // calculate total points in highscores
-        float points = 0f;
-        if (cursor.moveToFirst()) {
-            do {
-                float score = cursor.getFloat(2); // columnIndex
-                points += score;
-            } while(cursor.moveToNext());
-            Toast.makeText(getBaseContext(), "Total points: " + points, Toast.LENGTH_SHORT).show();
-        }
     }
 
     // query data from database
     public void queryData() {
         //cursor = db.rawQuery("SELECT _id, name, score FROM highscores ORDER BY score DESC", null);
         // get data with query
-        String[] resultColumns = new String[]{"_id","name","score"};
-        cursor = db.query(DATABASE_TABLE,resultColumns,null,null,null,null,"score DESC",null);
+        String[] resultColumns = new String[]{"_id","name"};
+        cursor = db.query(DATABASE_TABLE,resultColumns,null,null,null,null,null);
 
         // add data to adapter
         ListAdapter adapter = new SimpleCursorAdapter(this,
                 R.layout.list_item, cursor,
-                new String[] {"name", "score"},      // from
-                new int[] {R.id.name, R.id.score}    // to
+                new String[] {"name"},      // from
+                new int[] {R.id.name}    // to
                 ,0);  // flags
 
         // show data in listView
-        listView.setAdapter(adapter);
+       listView.setAdapter(adapter);
     }
 
     @Override
@@ -94,18 +83,17 @@ public class SelectPlayers extends Activity implements AddHighscoreDialogFragmen
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                AddHighscoreDialogFragment eDialog = new AddHighscoreDialogFragment();
-                eDialog.show(getFragmentManager(), "Add a new highscore");
+                AddPlayerDialogFragment eDialog = new AddPlayerDialogFragment();
+                eDialog.show(getFragmentManager(), "Add a new player");
         }
         return false;
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog, String name, int score) {
+    public void onDialogPositiveClick(DialogFragment dialog, String name) {
         ContentValues values=new ContentValues(2);
         values.put("name", name);
-        values.put("score", score);
-        db.insert("highscores", null, values);
+        db.insert("player", null, values);
         // get data again
         queryData();
     }
@@ -127,7 +115,7 @@ public class SelectPlayers extends Activity implements AddHighscoreDialogFragmen
             case DELETE_ID:
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
                 String[] args = {String.valueOf(info.id)};
-                db.delete("highscores", "_id=?", args);
+                db.delete("player", "_id=?", args);
                 queryData();
                 return true;
         }
