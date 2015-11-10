@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">Disc Buddy</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="new_game">Start new game</string>
     <string name="action_settings">Settings</string>
+
+    //select_course view
+    <string name="courseHeaderTextView">Select Course 666</string>
 
 
     // select_players view

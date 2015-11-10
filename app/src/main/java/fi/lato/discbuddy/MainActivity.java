@@ -1,9 +1,12 @@
 package fi.lato.discbuddy;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -18,6 +21,12 @@ public class MainActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    public void startNewActivity(View view) {
+        //Toast.makeText(getApplicationContext(), "Short Toast", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this,SelectCourse.class);
+        startActivity(intent);
     }
 
     @Override

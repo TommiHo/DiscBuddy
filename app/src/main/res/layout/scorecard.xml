@@ -4,14 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:shrinkColumns="*"  android:stretchColumns="*" android:background="#ffffff"
-    android:id="@+id/scorecard">
+    android:id="@+id/score_card">
     <!-- Row 1 with single column -->
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </TableRow>
-
+    <!-- Row 2 with 3 columns -->
     <TableRow
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
@@ -23,7 +18,7 @@
             android:textColor="#000"
             android:id="@+id/scorecard" />
     </TableRow>
-    <!-- Row 2 with 3 columns -->
+
     <TableRow
         android:id="@+id/tableRow1"
         android:layout_height="wrap_content"
@@ -49,6 +44,7 @@
             android:background="#00b766" />
     </TableRow>
     <!-- Row 3 with 2 columns -->
+
     <TableRow
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
