@@ -2,53 +2,56 @@ package fi.lato.discbuddy;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
-
-import java.util.ArrayList;
+import android.widget.SimpleCursorAdapter;
 
 /**
  * Created by Lasse on 10.11.2015.
  */
 public class SelectCourse extends Activity {
+    private final String DATABASE_TABLE = "courses";
+    private final int DELETE_ID = 0;
+    private SQLiteDatabase db;
+    private Cursor cursor;
+    private ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_course);
 
         // find list view
-        ListView listview = (ListView) findViewById(R.id.courseListView);
+        listView = (ListView)  findViewById(R.id.listView);
+        // register listView's context menu (to delete row)
+        registerForContextMenu(listView);
 
-        // generate some dummy data
-        String[] courses = new String[]{
-                "Laajavuori pro", "Tuomiojärvi"
-        };
+        // get database instance
+        db = (new DatabaseOpenHelper(this)).getWritableDatabase();
+        // get data with own made queryData method
+        queryData();
 
-        // add data to ArrayList
-        final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < courses.length; ++i) {
-            list.add(courses[i]);
-        }
-
-        // add data to ArrayAdapter (default Android ListView style/layout)
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
-
-        // set data to listView with adapter
-        listview.setAdapter(adapter);
-
-        // item listener
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // get list row data (now String as a phone name)
-                String course = list.get(position);
+                //Log.v("Cursor", DatabaseUtils.dumpCurrentRowToString(cursor));
+
+                //get cursor row data
+                String course = cursor.getString(cursor.getColumnIndex("name"));
+
                 // create an explicit intent
-                Intent intent = new Intent(SelectCourse.this,SelectPlayers.class);
+                Intent intent = new Intent(SelectCourse.this, SelectPlayers.class);
+
                 // add data to intent
-                intent.putExtra("course",course);
+                intent.putExtra("course", course);
+
                 // start a new activity
                 startActivity(intent);
             }
@@ -56,5 +59,29 @@ public class SelectCourse extends Activity {
 
     }
 
+    // query data from database
+    public void queryData() {
+        //cursor = db.rawQuery("SELECT _id, name, score FROM highscores ORDER BY score DESC", null);
+        // get data with query
+        String[] resultColumns = new String[]{"_id","name"};
+        cursor = db.query(DATABASE_TABLE,resultColumns,null,null,null,null,null,null);
 
+        // add data to adapter
+        final ListAdapter adapter = new SimpleCursorAdapter(this,
+                R.layout.course_list_item, cursor,
+                new String[] {"name"},      // from
+                new int[] {R.id.name}    // to
+                ,0);  // flags
+
+        // show data in listView
+        listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // close cursor and db connection
+        cursor.close();
+        db.close();
+    }
 }

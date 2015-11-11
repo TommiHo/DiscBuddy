@@ -5,8 +5,10 @@ import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,12 +18,13 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by tommi on 10.11.2015.
  */
 public class SelectPlayers extends Activity implements AddPlayerDialogFragment.DialogListener {
-    private final String DATABASE_TABLE = "player";
+    private final String DATABASE_TABLE = "players";
     private final int DELETE_ID = 0;
     private SQLiteDatabase db;
     private Cursor cursor;
@@ -36,22 +39,22 @@ public class SelectPlayers extends Activity implements AddPlayerDialogFragment.D
         Intent intent = getIntent();
         // get data from intent
         Bundle bundle = intent.getExtras();
-        String phone = bundle.getString("course");
-        // update text and image views to show data
-        TextView textView = (TextView) findViewById(R.id.courseTextView);
-        textView.setText(phone);
+        // get course
+        String course = bundle.getString("course");
 
+        // update text views to show data
+        TextView textView = (TextView) findViewById(R.id.courseTextView);
+        textView.setText(course);
 
         // find list view
         listView = (ListView)  findViewById(R.id.listView);
         // register listView's context menu (to delete row)
-       registerForContextMenu(listView);
+        registerForContextMenu(listView);
 
         // get database instance
         db = (new DatabaseOpenHelper(this)).getWritableDatabase();
         // get data with own made queryData method
         queryData();
-
     }
 
     // query data from database
