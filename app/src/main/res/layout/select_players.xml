@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/listView"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/courseTextView" />
+        android:layout_below="@+id/courseTextView"
+        android:layout_above="@+id/buttonOK" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,4 +21,13 @@
         android:text="Large Text"
         android:id="@+id/courseTextView"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/buttonOK"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/courseTextView"
+        android:onClick="startGame" />
 </RelativeLayout>

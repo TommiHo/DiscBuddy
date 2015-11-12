@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -72,7 +73,23 @@ public class SelectPlayers extends Activity implements AddPlayerDialogFragment.D
                 ,0);  // flags
 
         // show data in listView
-       listView.setAdapter(adapter);
+        listView.setAdapter(adapter);
+    }
+
+    public void startGame(View view) {
+        // get intent which has used to open this activity
+        Intent intent = getIntent();
+        // get data from intent
+        Bundle bundle = intent.getExtras();
+        // get course
+        String course = bundle.getString("course");
+
+        Intent intent2 = new Intent(SelectPlayers.this, InputScores.class);
+        // add data to intent
+        intent2.putExtra("course", course);
+
+        startActivity(intent2);
+
     }
 
     @Override

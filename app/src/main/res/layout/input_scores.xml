@@ -7,8 +7,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="coursename"
-        android:id="@+id/courseTextview"
+        android:text="Large Text"
+        android:id="@+id/courseTextView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -19,7 +19,7 @@
         android:text="@string/holetext"
         android:id="@+id/holetext"
         android:layout_marginStart="35dp"
-        android:layout_below="@+id/courseTextview"
+        android:layout_below="@+id/courseTextView"
         android:layout_alignParentStart="true"
         android:layout_marginTop="28dp"
         android:layout_gravity="center" />
@@ -31,7 +31,7 @@
         android:text="3"
         android:id="@+id/par"
         android:layout_alignTop="@+id/partext"
-        android:layout_alignEnd="@+id/courseTextview"
+        android:layout_alignEnd="@+id/courseTextView"
         android:layout_gravity="center" />
 
 

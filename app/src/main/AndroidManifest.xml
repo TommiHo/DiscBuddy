@@ -24,6 +24,10 @@
             android:name=".SelectPlayers"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name=".InputScores"
+            android:label="Scorecard">
+        </activity>
     </application>
 
 </manifest>
