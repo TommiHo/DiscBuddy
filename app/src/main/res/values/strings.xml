@@ -6,6 +6,9 @@
 
     //select_course view
     <string name="courseHeaderTextView">Select Course</string>
+    <string name="courseName">Course name:</string>
+    <string name="coursePar">Course par:</string>
+    <string name="par">Par: </string>
 
 
     // select_players view

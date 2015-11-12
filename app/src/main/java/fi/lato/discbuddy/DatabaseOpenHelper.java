@@ -1,15 +1,15 @@
 package fi.lato.discbuddy;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+        import android.content.ContentValues;
+        import android.content.Context;
+        import android.database.sqlite.SQLiteDatabase;
+        import android.database.sqlite.SQLiteOpenHelper;
 
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
     // Database Info
     private static final String DATABASE_NAME = "LaTo_database";
-    private static final int DATABASE_VERSION = 13;
+    private static final int DATABASE_VERSION = 14;
 
     // Table Names
     private final String TABLE_PLAYERS = "players";
@@ -20,6 +20,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     //Course Table Columns
     private final String KEY_COURSE_NAME = "name";
+    private final String KEY_COURSE_PAR = "par";
 
     public DatabaseOpenHelper(Context context) {
         // Context, database name, optional cursor factory, database version
@@ -30,7 +31,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_PLAYERS_TABLE = "CREATE TABLE "+ TABLE_PLAYERS +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_PLAYER_NAME +" TEXT);";
-        String CREATE_COURSES_TABLE = "CREATE TABLE "+ TABLE_COURSES +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_COURSE_NAME +" TEXT);";
+        String CREATE_COURSES_TABLE = "CREATE TABLE "+ TABLE_COURSES +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_COURSE_NAME +" TEXT, " + KEY_COURSE_PAR+" INTEGER);";
 
         // create new tables
         db.execSQL(CREATE_PLAYERS_TABLE);
@@ -46,9 +47,11 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         db.insert(TABLE_PLAYERS, null, values);
 
         values.put(KEY_COURSE_NAME, "Laajavuori PRO");
+        values.put(KEY_COURSE_PAR, 54);
         db.insert(TABLE_COURSES, null, values);
 
         values.put(KEY_COURSE_NAME, "Keljonkangas");
+        values.put(KEY_COURSE_PAR, 34);
         db.insert(TABLE_COURSES, null, values);
 
 

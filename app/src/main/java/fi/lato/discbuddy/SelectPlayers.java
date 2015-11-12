@@ -96,7 +96,7 @@ public class SelectPlayers extends Activity implements AddPlayerDialogFragment.D
     public void onDialogPositiveClick(DialogFragment dialog, String name) {
         ContentValues values=new ContentValues(2);
         values.put("name", name);
-        db.insert("player", null, values);
+        db.insert("players", null, values);
         // get data again
         queryData();
     }
