@@ -14,13 +14,22 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     // Table Names
     private final String TABLE_PLAYERS = "players";
     private final String TABLE_COURSES = "courses";
-
+    private final String TABLE_SCORES = "scores";
     // Player Table Columns
+    private final String KEY_PLAYER_ID = "id INTEGER PRIMARY KEY AUTOINCREMENT";
     private final String KEY_PLAYER_NAME = "name";
 
     //Course Table Columns
     private final String KEY_COURSE_NAME = "name";
     private final String KEY_COURSE_PAR = "par";
+
+    // Score table columns
+    private final String KEY_SCORES_HOLE = "hole";
+    private final String KEY_SCORES_HOLESCORE = "holeScore";
+    private final String KEY_SCORES_COURSESCORE = "courseScore";
+    private final String KEY_SCORES_PLAYERNAME = "playername";
+
+
 
     public DatabaseOpenHelper(Context context) {
         // Context, database name, optional cursor factory, database version
@@ -30,12 +39,13 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_PLAYERS_TABLE = "CREATE TABLE "+ TABLE_PLAYERS +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_PLAYER_NAME +" TEXT);";
+        String CREATE_PLAYERS_TABLE = "CREATE TABLE "+ TABLE_PLAYERS +" (_" + KEY_PLAYER_ID + ","+ KEY_PLAYER_NAME +" TEXT);";
         String CREATE_COURSES_TABLE = "CREATE TABLE "+ TABLE_COURSES +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_COURSE_NAME +" TEXT, " + KEY_COURSE_PAR+" INTEGER);";
-
+        String CREATE_SCORES_TABLE = "CREATE TABLE "+ TABLE_SCORES +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_SCORES_HOLE +" INTEGER, " + KEY_SCORES_HOLESCORE+ " INTEGER, "+ KEY_SCORES_COURSESCORE +" INTEGER, "+ "FOREIGN KEY("+KEY_SCORES_PLAYERNAME + ") REFERENCES " + TABLE_PLAYERS + "(" + KEY_PLAYER_ID +"))";
         // create new tables
         db.execSQL(CREATE_PLAYERS_TABLE);
         db.execSQL(CREATE_COURSES_TABLE);
+        db.execSQL(CREATE_SCORES_TABLE);
 
         // create sample data
         ContentValues values = new ContentValues();
