@@ -27,6 +27,7 @@ public class SelectCourse extends Activity implements AddCourseDialogFragment.Di
     private SQLiteDatabase db;
     private Cursor cursor;
     private ListView listView;
+    public static String course;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +50,14 @@ public class SelectCourse extends Activity implements AddCourseDialogFragment.Di
                 Log.v("Cursor", DatabaseUtils.dumpCurrentRowToString(cursor));
 
                 //get cursor row data
-                String course = cursor.getString(cursor.getColumnIndex("name"));
+                //String course = cursor.getString(cursor.getColumnIndex("name"));
 
                 // create an explicit intent
                 Intent intent = new Intent(SelectCourse.this, SelectPlayers.class);
 
                 // add data to intent
-                intent.putExtra("course", course);
-
+                //intent.putExtra("course", course);
+                course = cursor.getString(cursor.getColumnIndex("name")).toString();
                 // start a new activity
                 startActivity(intent);
             }

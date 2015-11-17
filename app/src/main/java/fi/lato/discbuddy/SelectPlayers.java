@@ -15,11 +15,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tommi on 10.11.2015.
@@ -30,6 +34,7 @@ public class SelectPlayers extends Activity implements AddPlayerDialogFragment.D
     private SQLiteDatabase db;
     private Cursor cursor;
     private ListView listView;
+    private static ArrayList<String> playerNames = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +42,15 @@ public class SelectPlayers extends Activity implements AddPlayerDialogFragment.D
         setContentView(R.layout.select_players);
 
         // get intent which has used to open this activity
-        Intent intent = getIntent();
+        //Intent intent = getIntent();
         // get data from intent
-        Bundle bundle = intent.getExtras();
+        //Bundle bundle = intent.getExtras();
         // get course
-        String course = bundle.getString("course");
+        //String course = bundle.getString("course");
 
         // update text views to show data
         TextView textView = (TextView) findViewById(R.id.courseTextView);
-        textView.setText(course);
+        textView.setText(SelectCourse.course.toString());
 
         // find list view
         listView = (ListView)  findViewById(R.id.listView);
@@ -56,6 +61,8 @@ public class SelectPlayers extends Activity implements AddPlayerDialogFragment.D
         db = (new DatabaseOpenHelper(this)).getWritableDatabase();
         // get data with own made queryData method
         queryData();
+
+
     }
 
     // query data from database
@@ -77,19 +84,25 @@ public class SelectPlayers extends Activity implements AddPlayerDialogFragment.D
     }
 
     public void startGame(View view) {
-        // get intent which has used to open this activity
-        Intent intent = getIntent();
-        // get data from intent
-        Bundle bundle = intent.getExtras();
-        // get course
-        String course = bundle.getString("course");
 
-        Intent intent2 = new Intent(SelectPlayers.this, InputScores.class);
+        Intent intent = new Intent(SelectPlayers.this, InputScores.class);
         // add data to intent
-        intent2.putExtra("course", course);
+        intent.putExtra("data", playerNames);
+        startActivity(intent);
 
-        startActivity(intent2);
+    }
 
+    public void itemClicked(View v) {
+        //code to check if this checkbox is checked!
+        CheckBox checkBox = (CheckBox)v;
+        if(checkBox.isChecked()){
+            String playerName = ((CheckBox) v).getText().toString();
+            playerNames.add(playerName);
+            Toast.makeText(getApplicationContext(), playerName, Toast.LENGTH_SHORT).show();
+        }else {
+            String playerName = ((CheckBox) v).getText().toString();
+            playerNames.remove(playerName);
+        }
     }
 
     @Override
