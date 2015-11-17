@@ -6,17 +6,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-/**
- * Created by tommi on 10.11.2015.
- */
+
 public class InputScores extends Activity {
 
-    private final String DATABASE_TABLE = "players";
+    private final String DATABASE_PLAYERS = "players";
+    private final String DATABASE_SCORES = "scores";
     private SQLiteDatabase db;
     private Cursor cursor;
     private ListView scores_listView;
@@ -48,13 +48,26 @@ public class InputScores extends Activity {
         queryData();
     }
 
+
+        // tuloksien syöttäminen
+    public void plusbuttonClick(View v){
+        TextView textView = (TextView) findViewById(R.id.par);
+        textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString())+1));
+    }
+
+    public void minusbuttonClick(View v){
+        TextView textView = (TextView) findViewById(R.id.par);
+        textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString())-1));
+    }
+
     // query data from database
     public void queryData() {
         //cursor = db.rawQuery("SELECT _id, name, score FROM highscores ORDER BY score DESC", null);
         // get data with query
         String[] resultColumns = new String[]{"_id","name"};
-        cursor = db.query(DATABASE_TABLE,resultColumns,null,null,null,null,null);
-
+        String[] scoreColumns = new String[]{"_id","hole","holeScore","courseScore",""};
+        cursor = db.query(DATABASE_PLAYERS,resultColumns,null,null,null,null,null);
+        cursor = db.query(DATABASE_SCORES,scoreColumns,null,null,null,null,null);
         // add data to adapter
         ListAdapter adapter = new SimpleCursorAdapter(this,
                 R.layout.score_list_item, cursor,

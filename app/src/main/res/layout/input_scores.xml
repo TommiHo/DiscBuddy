@@ -24,16 +24,6 @@
         android:layout_marginTop="28dp"
         android:layout_gravity="center" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="3"
-        android:id="@+id/par"
-        android:layout_alignTop="@+id/partext"
-        android:layout_alignEnd="@+id/courseTextView"
-        android:layout_gravity="center" />
-
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,16 +34,6 @@
         android:layout_alignTop="@+id/holetext"
         android:layout_toEndOf="@+id/holetext"
         android:layout_marginStart="24dp"
-        android:layout_gravity="center" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/partext"
-        android:id="@+id/partext"
-        android:layout_alignTop="@+id/holenumber"
-        android:layout_centerHorizontal="true"
         android:layout_gravity="center" />
 
     <ListView

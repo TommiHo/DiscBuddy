@@ -27,7 +27,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     private final String KEY_SCORES_HOLE = "hole";
     private final String KEY_SCORES_HOLESCORE = "holeScore";
     private final String KEY_SCORES_COURSESCORE = "courseScore";
-    private final String KEY_SCORES_PLAYERNAME = "playername";
+    private final String KEY_SCORES_PLAYERNAME = "playerName";
 
 
 
@@ -41,7 +41,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_PLAYERS_TABLE = "CREATE TABLE "+ TABLE_PLAYERS +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_PLAYER_NAME +" TEXT);";
         String CREATE_COURSES_TABLE = "CREATE TABLE "+ TABLE_COURSES +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_COURSE_NAME +" TEXT, " + KEY_COURSE_PAR+" INTEGER);";
-        String CREATE_SCORES_TABLE = "CREATE TABLE "+ TABLE_SCORES +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_SCORES_HOLE +" INTEGER, " + KEY_SCORES_HOLESCORE+ " INTEGER, "+ KEY_SCORES_COURSESCORE +" INTEGER, "+ "FOREIGN KEY("+KEY_SCORES_PLAYERNAME + ") REFERENCES " + TABLE_PLAYERS+ "_id) ;";
+        String CREATE_SCORES_TABLE = "CREATE TABLE "+ TABLE_SCORES +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_SCORES_HOLE +" INTEGER, " + KEY_SCORES_HOLESCORE+ " INTEGER, "
+                + KEY_SCORES_COURSESCORE +" INTEGER, "+ "FOREIGN KEY("+KEY_SCORES_PLAYERNAME + ") REFERENCES " + TABLE_PLAYERS+ "(_id) );";
         // create new tables
         db.execSQL(CREATE_PLAYERS_TABLE);
         db.execSQL(CREATE_COURSES_TABLE);

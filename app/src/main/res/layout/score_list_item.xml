@@ -13,7 +13,10 @@
         android:text="@string/minusbutton"
         android:layout_alignParentTop="true"
         android:layout_toStartOf="@+id/plusbutton"
-        android:layout_marginEnd="51dp" />
+        android:layout_marginEnd="51dp"
+        android:onClick="minusbuttonClick"
+        />
+
 
     <TextView
         android:id="@+id/name"
@@ -29,13 +32,15 @@
         android:id="@+id/plusbutton"
         android:text="@string/plusbutton"
         android:layout_alignBottom="@+id/name"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="plusbuttonClick"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="3"
+        android:text="0"
         android:id="@+id/par"
         android:layout_above="@+id/name"
         android:layout_toStartOf="@+id/plusbutton" />
