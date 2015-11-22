@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Disc Buddy</string>
 
-    <string name="new_game">Start new game</string>
+    <string name="new_game">Start a new game</string>
     <string name="action_settings">Settings</string>
 
     //select_course view
@@ -15,6 +15,7 @@
     <string name="selectplayers">Select Players</string>
     <string name="newplayerbutton">New Player</string>
     <string name="startgamebutton">Start game</string>
+    <string name="buttonOk">Start game</string>
 
 
     // input_scores view

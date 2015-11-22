@@ -1,6 +1,7 @@
 package fi.lato.discbuddy;
 
 import android.app.Activity;
+import android.app.WallpaperInfo;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -55,16 +56,17 @@ public class InputScores extends Activity {
         Toast.makeText(getApplicationContext(), playerNames.get(0).toString(), Toast.LENGTH_SHORT).show();
     }
 
-
         // tuloksien syöttäminen
     public void plusbuttonClick(View v){
-        TextView textView = (TextView) findViewById(R.id.par);
-        textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString())+1));
+        int position = scores_listView.getPositionForView(v);
+        TextView tv = (TextView) scores_listView.getChildAt(position).findViewById(R.id.par);
+        tv.setText(String.valueOf(Integer.parseInt(tv.getText().toString())+1));
     }
 
     public void minusbuttonClick(View v){
-        TextView textView = (TextView) findViewById(R.id.par);
-        textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString())-1));
+        int position = scores_listView.getPositionForView(v);
+        TextView tv = (TextView) scores_listView.getChildAt(position).findViewById(R.id.par);
+        tv.setText(String.valueOf(Integer.parseInt(tv.getText().toString())-1));
     }
 
     // query data from database
@@ -91,5 +93,7 @@ public class InputScores extends Activity {
         scores_listView.setAdapter(adapter);
         Log.v("Cursor", DatabaseUtils.dumpCursorToString(cursor));
     }
+
+
 
 }
