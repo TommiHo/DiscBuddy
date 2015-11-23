@@ -9,7 +9,7 @@ package fi.lato.discbuddy;
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
     // Database Info
     private static final String DATABASE_NAME = "LaTo_database";
-    private static final int DATABASE_VERSION = 14;
+    private static final int DATABASE_VERSION = 18;
 
     // Table Names
     private final String TABLE_PLAYERS = "players";
@@ -22,6 +22,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     //Course Table Columns
     private final String KEY_COURSE_NAME = "name";
     private final String KEY_COURSE_PAR = "par";
+    private final String KEY_COURSE_HOLECOUNT = "holeCount";
 
     // Score table columns
     private final String KEY_SCORES_HOLE = "hole";
@@ -40,16 +41,17 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_PLAYERS_TABLE = "CREATE TABLE "+ TABLE_PLAYERS +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_PLAYER_NAME +" TEXT);";
-        String CREATE_COURSES_TABLE = "CREATE TABLE "+ TABLE_COURSES +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_COURSE_NAME +" TEXT, " + KEY_COURSE_PAR+" INTEGER);";
+        String CREATE_COURSES_TABLE = "CREATE TABLE "+ TABLE_COURSES +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_COURSE_NAME +" TEXT, " + KEY_COURSE_PAR+" INTEGER, "
+                + KEY_COURSE_HOLECOUNT + " INTEGER);";
         String CREATE_SCORES_TABLE = "CREATE TABLE "+ TABLE_SCORES +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_SCORES_HOLE +" INTEGER, " + KEY_SCORES_HOLESCORE+ " INTEGER, "
                 + KEY_SCORES_COURSESCORE +" INTEGER, "+ "FOREIGN KEY("+KEY_SCORES_PLAYERNAME + ") REFERENCES " + TABLE_PLAYERS+ "(_id) );";
         // create new tables
         db.execSQL(CREATE_PLAYERS_TABLE);
         db.execSQL(CREATE_COURSES_TABLE);
-        db.execSQL(CREATE_SCORES_TABLE);
+        //db.execSQL(CREATE_SCORES_TABLE);
         // create sample data
         ContentValues values = new ContentValues();
-        values.put(KEY_PLAYER_NAME, "Liisa Jokinen");
+        values.put(KEY_PLAYER_NAME, "Mauno Koivisto");
         // insert data to database, name of table, "Nullcolumnhack", values
         db.insert(TABLE_PLAYERS, null, values);
         // a more data...
@@ -58,10 +60,11 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
         values.put(KEY_COURSE_NAME, "Laajavuori PRO");
         values.put(KEY_COURSE_PAR, 54);
+        values.put(KEY_COURSE_HOLECOUNT, 18);
         db.insert(TABLE_COURSES, null, values);
 
         values.put(KEY_COURSE_NAME, "Keljonkangas");
-        values.put(KEY_COURSE_PAR, 34);
+        values.put(KEY_COURSE_HOLECOUNT, 9);
         db.insert(TABLE_COURSES, null, values);
 
 

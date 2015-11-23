@@ -9,7 +9,7 @@
     <string name="courseName">Course name:</string>
     <string name="coursePar">Course par:</string>
     <string name="par">Par: </string>
-
+    <string name="holeCount">Number of holes:</string>
 
     // select_players view
     <string name="selectplayers">Select Players</string>

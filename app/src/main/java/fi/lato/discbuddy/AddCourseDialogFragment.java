@@ -15,10 +15,7 @@ import android.widget.EditText;
  */
 public class AddCourseDialogFragment extends DialogFragment {
     public interface DialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog, String name);
-
-        void onDialogPositiveClick(DialogFragment dialog, String name, int par);
-
+        public void onDialogPositiveClick(DialogFragment dialog, String name, int par, int holeCount);
         public void onDialogNegativeClick(DialogFragment dialog);
     }
 
@@ -63,8 +60,10 @@ public class AddCourseDialogFragment extends DialogFragment {
                         String name = editName.getText().toString();
                         EditText editPar = (EditText) dialogView.findViewById(R.id.par);
                         int par = Integer.valueOf(editPar.getText().toString());
+                        EditText editHoles = (EditText) dialogView.findViewById(R.id.holeCount);
+                        int holeCount = Integer.valueOf(editHoles.getText().toString());
 
-                        mListener.onDialogPositiveClick(AddCourseDialogFragment.this,name,par);
+                        mListener.onDialogPositiveClick(AddCourseDialogFragment.this,name,par,holeCount);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

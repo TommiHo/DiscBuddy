@@ -28,6 +28,7 @@ public class SelectCourse extends Activity implements AddCourseDialogFragment.Di
     private Cursor cursor;
     private ListView listView;
     public static String course;
+    public static int holeCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class SelectCourse extends Activity implements AddCourseDialogFragment.Di
                 // add data to intent
                 //intent.putExtra("course", course);
                 course = cursor.getString(cursor.getColumnIndex("name")).toString();
+                holeCount = cursor.getInt(cursor.getColumnIndex("holeCount"));
                 // start a new activity
                 startActivity(intent);
             }
@@ -69,7 +71,7 @@ public class SelectCourse extends Activity implements AddCourseDialogFragment.Di
     public void queryData() {
         //cursor = db.rawQuery("SELECT _id, name, score FROM highscores ORDER BY score DESC", null);
         // get data with query
-        String[] resultColumns = new String[]{"_id","name","par"};
+        String[] resultColumns = new String[]{"_id","name","par","holeCount"};
         cursor = db.query(DATABASE_TABLE, resultColumns, null, null, null, null, null, null);
 
         // add data to adapter
@@ -102,20 +104,11 @@ public class SelectCourse extends Activity implements AddCourseDialogFragment.Di
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog, String name) {
-        ContentValues values=new ContentValues(2);
-        values.put("name", name);
-        //values.put("par", par);
-        db.insert("courses", null, values);
-        // get data again
-        queryData();
-    }
-
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog, String name, int par) {
-        ContentValues values=new ContentValues(2);
+    public void onDialogPositiveClick(DialogFragment dialog, String name, int par, int holeCount) {
+        ContentValues values=new ContentValues(3);
         values.put("name", name);
         values.put("par", par);
+        values.put("holeCount", holeCount);
         db.insert("courses", null, values);
         // get data again
         queryData();

@@ -98,7 +98,6 @@ public class SelectPlayers extends Activity implements AddPlayerDialogFragment.D
         if(checkBox.isChecked()){
             String playerName = ((CheckBox) v).getText().toString();
             playerNames.add(playerName);
-            Toast.makeText(getApplicationContext(), playerName, Toast.LENGTH_SHORT).show();
         }else {
             String playerName = ((CheckBox) v).getText().toString();
             playerNames.remove(playerName);
