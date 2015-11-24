@@ -24,7 +24,6 @@ public class MainActivity extends Activity {
     }
 
     public void startNewActivity(View view) {
-        //Toast.makeText(getApplicationContext(), "Short Toast", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,SelectCourse.class);
         startActivity(intent);
     }

@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -34,19 +35,12 @@ public class SelectPlayers extends Activity implements AddPlayerDialogFragment.D
     private SQLiteDatabase db;
     private Cursor cursor;
     private ListView listView;
-    private static ArrayList<String> playerNames = new ArrayList<String>();
+    public static ArrayList<Player> players = new ArrayList<Player>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_players);
-
-        // get intent which has used to open this activity
-        //Intent intent = getIntent();
-        // get data from intent
-        //Bundle bundle = intent.getExtras();
-        // get course
-        //String course = bundle.getString("course");
 
         // update text views to show data
         TextView textView = (TextView) findViewById(R.id.courseTextView);
@@ -84,12 +78,8 @@ public class SelectPlayers extends Activity implements AddPlayerDialogFragment.D
     }
 
     public void startGame(View view) {
-
         Intent intent = new Intent(SelectPlayers.this, InputScores.class);
-        // add data to intent
-        intent.putExtra("data", playerNames);
         startActivity(intent);
-
     }
 
     public void itemClicked(View v) {
@@ -97,10 +87,15 @@ public class SelectPlayers extends Activity implements AddPlayerDialogFragment.D
         CheckBox checkBox = (CheckBox)v;
         if(checkBox.isChecked()){
             String playerName = ((CheckBox) v).getText().toString();
-            playerNames.add(playerName);
+            players.add(new Player(playerName, 0));
         }else {
             String playerName = ((CheckBox) v).getText().toString();
-            playerNames.remove(playerName);
+            Iterator<Player> it = players.iterator();
+            while(it.hasNext()){
+                if(it.next().getName().equals(playerName)){
+                    it.remove();
+                }
+            }
         }
     }
 

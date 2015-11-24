@@ -45,4 +45,13 @@
         android:layout_above="@+id/name"
         android:layout_toStartOf="@+id/plusbutton" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Player Name"
+        android:id="@+id/playerName"
+        android:layout_above="@+id/name"
+        android:layout_toEndOf="@+id/name" />
+
 </RelativeLayout>

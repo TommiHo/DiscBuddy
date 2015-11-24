@@ -9,7 +9,7 @@ package fi.lato.discbuddy;
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
     // Database Info
     private static final String DATABASE_NAME = "LaTo_database";
-    private static final int DATABASE_VERSION = 18;
+    private static final int DATABASE_VERSION = 20;
 
     // Table Names
     private final String TABLE_PLAYERS = "players";
@@ -73,6 +73,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_PLAYERS);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_COURSES);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_SCORES);
         onCreate(db);
     }
 }
