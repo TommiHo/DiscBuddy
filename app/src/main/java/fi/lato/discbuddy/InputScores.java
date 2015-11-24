@@ -48,6 +48,54 @@ public class InputScores extends FragmentActivity {
         scores_listView = (ListView)  findViewById(R.id.scores_listView);
     }
 
+
+        // tuloksien syöttäminen
+
+    public void plusbuttonClick(View v){
+        int position = scores_listView.getPositionForView(v);
+        TextView tv = (TextView) scores_listView.getChildAt(position).findViewById(R.id.par);
+        tv.setText(String.valueOf(Integer.parseInt(tv.getText().toString())+1));
+    }
+
+    public void minusbuttonClick(View v){
+        int position = scores_listView.getPositionForView(v);
+        TextView tv = (TextView) scores_listView.getChildAt(position).findViewById(R.id.par);
+        tv.setText(String.valueOf(Integer.parseInt(tv.getText().toString())-1));
+    }
+
+    // query data from database
+    public void queryData(ArrayList<String> playerNames) {
+        String[] names = new String[playerNames.size()];
+        names = playerNames.toArray(names);
+        //names =playerNames.to
+        cursor = db.rawQuery("SELECT _id, name FROM players WHERE name IN (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", names);
+        // get data with query
+        String[] resultColumns = new String[]{"_id","name"};
+        //String[] scoreColumns = new String[]{"_id","hole","holeScore","courseScore","_id"};
+        cursor = db.query(DATABASE_PLAYERS,resultColumns,null,null,null,null,null);
+        //cursor = db.query(DATABASE_SCORES,scoreColumns,null,null,null,null,null);
+        // add data to adapter
+        ListAdapter adapter = new SimpleCursorAdapter(this,
+                R.layout.score_list_item, cursor,
+                new String[] {"name"},      // from
+                new int[] {R.id.name}    // to
+                ,0);  // flags
+
+        // show data in listView
+        //scores_listView.setAdapter(adapter);
+        Log.v("Cursor", DatabaseUtils.dumpCursorToString(cursor));
+    }
+
+    public void onPageScrollStateChanged(int state, String name, Integer par) {
+        ContentValues values=new ContentValues(3);
+        values.put("name",name);
+        db.insert(DATABASE_PLAYERS, null, values);
+
+        values.put("holeScore", par);
+        db.insert(DATABASE_SCORES, null, values);
+    }
+
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.

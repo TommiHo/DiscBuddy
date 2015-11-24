@@ -77,8 +77,8 @@ public class SelectCourse extends Activity implements AddCourseDialogFragment.Di
         // add data to adapter
         final ListAdapter adapter = new SimpleCursorAdapter(this,
                 R.layout.course_list_item, cursor,
-                new String[] {"name", "par"},      // from
-                new int[] {R.id.name, R.id.par}    // to
+                new String[] {"name", "par","holeCount"},      // from
+                new int[] {R.id.name, R.id.par, R.id.holeCount}    // to
                 ,0);  // flags
 
         // show data in listView

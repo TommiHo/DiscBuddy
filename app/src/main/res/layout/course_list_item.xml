@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
-            android:id="@+id/name" />
+            android:id="@+id/name"
+            android:paddingBottom="10dp" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -35,6 +36,20 @@
                 android:layout_height="wrap_content"
                 android:text="New Text"
                 android:id="@+id/par" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/holes"
+                android:id="@+id/textView4"
+                android:paddingStart="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/holeCount"
+                android:text="holes" />
+
         </LinearLayout>
 
     </LinearLayout>
