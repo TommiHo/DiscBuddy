@@ -1,6 +1,8 @@
 package fi.lato.discbuddy;
 
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.app.Fragment;
@@ -28,7 +30,7 @@ import java.util.ArrayList;
 public class InputScores extends Activity {
 
     private final String DATABASE_PLAYERS = "players";
-    //private final String DATABASE_SCORES = "scores";
+    private final String DATABASE_SCORES = "scores";
     private SQLiteDatabase db;
     private Cursor cursor;
     private ListView scores_listView;
@@ -83,6 +85,7 @@ public class InputScores extends Activity {
         //Toast.makeText(getApplicationContext(), playerNames.get(0).toString(), Toast.LENGTH_SHORT).show();
     }
 
+
         // tuloksien syöttäminen
 
     public void plusbuttonClick(View v){
@@ -104,11 +107,9 @@ public class InputScores extends Activity {
         //names =playerNames.to
         cursor = db.rawQuery("SELECT _id, name FROM players WHERE name IN (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", names);
         // get data with query
-        //String Selection = "name IN (?)";
-        //String[] playerSelection = new String[]{"Tommi Honkonen","Liisa Jokinen"};
-        //String[] resultColumns = new String[]{"_id","name"};
-        //String[] scoreColumns = new String[]{"_id","hole","holeScore","courseScore",""};
-        //cursor = db.query(DATABASE_PLAYERS,resultColumns,null,null,null,null,null);
+        String[] resultColumns = new String[]{"_id","name"};
+        //String[] scoreColumns = new String[]{"_id","hole","holeScore","courseScore","_id"};
+        cursor = db.query(DATABASE_PLAYERS,resultColumns,null,null,null,null,null);
         //cursor = db.query(DATABASE_SCORES,scoreColumns,null,null,null,null,null);
         // add data to adapter
         ListAdapter adapter = new SimpleCursorAdapter(this,
@@ -121,6 +122,17 @@ public class InputScores extends Activity {
         //scores_listView.setAdapter(adapter);
         Log.v("Cursor", DatabaseUtils.dumpCursorToString(cursor));
     }
+
+    public void onPageScrollStateChanged(int state, String name, Integer par) {
+        ContentValues values=new ContentValues(3);
+        values.put("name",name);
+        db.insert(DATABASE_PLAYERS, null, values);
+
+        values.put("holeScore", par);
+        db.insert(DATABASE_SCORES, null, values);
+    }
+
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.

@@ -9,7 +9,7 @@ package fi.lato.discbuddy;
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
     // Database Info
     private static final String DATABASE_NAME = "LaTo_database";
-    private static final int DATABASE_VERSION = 18;
+    private static final int DATABASE_VERSION = 19;
 
     // Table Names
     private final String TABLE_PLAYERS = "players";
@@ -28,13 +28,14 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     private final String KEY_SCORES_HOLE = "hole";
     private final String KEY_SCORES_HOLESCORE = "holeScore";
     private final String KEY_SCORES_COURSESCORE = "courseScore";
-    private final String KEY_SCORES_PLAYERNAME = "playerName";
+    private final String KEY_SCORES_PLAYERS = "playersid";
 
 
 
     public DatabaseOpenHelper(Context context) {
         // Context, database name, optional cursor factory, database version
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
 
     }
 
@@ -44,11 +45,11 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         String CREATE_COURSES_TABLE = "CREATE TABLE "+ TABLE_COURSES +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_COURSE_NAME +" TEXT, " + KEY_COURSE_PAR+" INTEGER, "
                 + KEY_COURSE_HOLECOUNT + " INTEGER);";
         String CREATE_SCORES_TABLE = "CREATE TABLE "+ TABLE_SCORES +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_SCORES_HOLE +" INTEGER, " + KEY_SCORES_HOLESCORE+ " INTEGER, "
-                + KEY_SCORES_COURSESCORE +" INTEGER, "+ "FOREIGN KEY("+KEY_SCORES_PLAYERNAME + ") REFERENCES " + TABLE_PLAYERS+ "(_id) );";
+                + KEY_SCORES_COURSESCORE +" INTEGER, "+ KEY_SCORES_PLAYERS +" INTEGER, "+ "FOREIGN KEY("+KEY_SCORES_PLAYERS + ") REFERENCES " + TABLE_PLAYERS+ "(_id) );";
         // create new tables
         db.execSQL(CREATE_PLAYERS_TABLE);
         db.execSQL(CREATE_COURSES_TABLE);
-        //db.execSQL(CREATE_SCORES_TABLE);
+        db.execSQL(CREATE_SCORES_TABLE);
         // create sample data
         ContentValues values = new ContentValues();
         values.put(KEY_PLAYER_NAME, "Mauno Koivisto");
@@ -73,6 +74,9 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_PLAYERS);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_COURSES);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_SCORES);
+
         onCreate(db);
     }
 }
