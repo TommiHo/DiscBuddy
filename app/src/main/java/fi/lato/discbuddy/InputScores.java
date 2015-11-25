@@ -53,6 +53,8 @@ public class InputScores extends FragmentActivity {
 
         // find list view
         scores_listView = (ListView)  findViewById(R.id.scores_listView);
+
+        db = (new DatabaseOpenHelper(this)).getWritableDatabase();
     }
 
     ViewPager.OnPageChangeListener myOnPageChangeListener =
@@ -63,6 +65,7 @@ public class InputScores extends FragmentActivity {
                 public void onPageScrollStateChanged(int state) {
                     //Called when the scroll state changes.
                     Log.d("Scrolli testi", "Toimiii");
+
                 }
 
                 @Override
@@ -77,24 +80,24 @@ public class InputScores extends FragmentActivity {
                 public void onPageSelected(int position) {
                     //This method will be invoked when a new page becomes selected.
                     Log.d("Scrolli testi", "UUUUSI SIVU");
+
+
+
                     Iterator<Player> it = SelectPlayers.players.iterator();
                     while(it.hasNext()){
-                        it.next().resetCount();
+
+                        ContentValues values=new ContentValues(1);
+                        Integer par = it.next().getCount();
+
+                            values.put("holeScore", par);
+                            db.insert(DATABASE_SCORES, null, values);
+
                     }
                 }
             };
 
 
-        // tuloksien syöttäminen
 
-    public void onPageScrollStateChanged(int state, String name, Integer par) {
-        ContentValues values=new ContentValues(3);
-        values.put("name",name);
-        db.insert(DATABASE_PLAYERS, null, values);
-
-        values.put("holeScore", par);
-        db.insert(DATABASE_SCORES, null, values);
-    }
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
