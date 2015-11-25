@@ -32,4 +32,6 @@ public class Player {
         this.count--;
     }
 
+    public void resetCount() { this.count = 0; }
+
 }

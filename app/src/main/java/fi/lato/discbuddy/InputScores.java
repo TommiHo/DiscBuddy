@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
+import java.util.Iterator;
+
 /**
  * Created by tommi on 10.11.2015.
  */
@@ -47,10 +49,40 @@ public class InputScores extends FragmentActivity {
         // Set up the ViewPager with the sections adapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
+        mPager.addOnPageChangeListener(myOnPageChangeListener);
 
         // find list view
         scores_listView = (ListView)  findViewById(R.id.scores_listView);
     }
+
+    ViewPager.OnPageChangeListener myOnPageChangeListener =
+            new ViewPager.OnPageChangeListener(){
+
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                    //Called when the scroll state changes.
+                    Log.d("Scrolli testi", "Toimiii");
+                }
+
+                @Override
+                public void onPageScrolled(int position,
+                                           float positionOffset, int positionOffsetPixels) {
+                    //This method will be invoked when the current page is scrolled,
+                    //either as part of a programmatically initiated smooth scroll
+                    //or a user initiated touch scroll.
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    //This method will be invoked when a new page becomes selected.
+                    Log.d("Scrolli testi", "UUUUSI SIVU");
+                    Iterator<Player> it = SelectPlayers.players.iterator();
+                    while(it.hasNext()){
+                        it.next().resetCount();
+                    }
+                }
+            };
 
 
         // tuloksien syöttäminen
@@ -63,7 +95,6 @@ public class InputScores extends FragmentActivity {
         values.put("holeScore", par);
         db.insert(DATABASE_SCORES, null, values);
     }
-
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -87,6 +118,7 @@ public class InputScores extends FragmentActivity {
             int count = SelectCourse.holeCount;
             return count;
         }
+
 
         @Override
         public CharSequence getPageTitle(int position) {

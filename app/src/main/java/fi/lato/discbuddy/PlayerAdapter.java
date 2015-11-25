@@ -30,6 +30,7 @@ public class PlayerAdapter extends ArrayAdapter<Player>{
         // name
         TextView nameTextView = (TextView) rowView.findViewById(R.id.playerName);
         nameTextView.setText(players.get(position).getName());
+
         // count
         final TextView countTextView = (TextView) rowView.findViewById(R.id.par);
         countTextView.setText(players.get(position).getCount()+"");
