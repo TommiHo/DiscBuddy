@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * Created by Lasse on 22.11.2015.
@@ -17,6 +18,8 @@ public class ScoresFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.input_scores, container, false);
         listView = (ListView) rootView.findViewById(R.id.scores_listView);
+        TextView courseName = (TextView) rootView.findViewById(R.id.courseTextView);
+        courseName.setText(SelectCourse.course);
         return rootView;
     }
 

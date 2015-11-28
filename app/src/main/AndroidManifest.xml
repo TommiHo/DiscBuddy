@@ -26,6 +26,10 @@
         </activity>
         <activity
             android:name=".InputScores"
+            android:label="Input Scrores">
+        </activity>
+        <activity
+            android:name=".ScoreCard"
             android:label="Scorecard">
         </activity>
     </application>

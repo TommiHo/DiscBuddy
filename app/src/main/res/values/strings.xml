@@ -31,4 +31,9 @@
     <string name="action_add">add</string>
 
 
+    <string name="action_previous">Previous</string>
+    <string name="action_next">Next</string>
+    <string name="action_finish">Finish</string>
+
+
 </resources>

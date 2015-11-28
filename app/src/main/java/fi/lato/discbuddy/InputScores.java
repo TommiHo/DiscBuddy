@@ -2,26 +2,27 @@ package fi.lato.discbuddy;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
-
+import android.widget.Toast;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
  * Created by tommi on 10.11.2015.
  */
 public class InputScores extends FragmentActivity {
-    private SQLiteDatabase db;
     private ListView scores_listView;
-    private final String DATABASE_PLAYERS = "players";
-    private final String DATABASE_SCORES = "scores";
-    //public static ArrayList<Player> playerNames;
+    public static ArrayList<int[]> scores = new ArrayList<int[]>();
+    private int[] pages = {0,0};
 
 
     /**
@@ -50,9 +51,55 @@ public class InputScores extends FragmentActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
         mPager.addOnPageChangeListener(myOnPageChangeListener);
-
         // find list view
         scores_listView = (ListView)  findViewById(R.id.scores_listView);
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.input_scores_slide, menu);
+
+        menu.findItem(R.id.action_previous).setEnabled((mPager.getCurrentItem()>=1));
+
+        // Add either a "next" or "finish" button to the action bar, depending on which page
+        // is currently selected.
+        MenuItem item = (mPager.getCurrentItem() == mAdapter.getCount() - 1)
+                ? menu.add(Menu.NONE, R.id.action_finish, Menu.NONE,R.string.action_finish)
+                : menu.add(Menu.NONE, R.id.action_next, Menu.NONE,R.string.action_next);
+
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_finish:
+                //save last page scores
+                updatePages();
+                saveScores();
+                // Navigate scorecard-activity.
+                Intent intent = new Intent(this, ScoreCard.class);
+                intent.putExtra("scores", scores);
+                startActivity(intent);
+                Log.d("scores",scores.size()+"");
+                return true;
+
+            case R.id.action_previous:
+                // Go to the previous course. If there is no previous step,
+                // setCurrentItem will do nothing.
+                mPager.setCurrentItem(mPager.getCurrentItem() - 1);
+                return true;
+
+            case R.id.action_next:
+                // Advance to the next course. If there is no next step, setCurrentItem
+                // will do nothing.
+                mPager.setCurrentItem(mPager.getCurrentItem() + 1);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     ViewPager.OnPageChangeListener myOnPageChangeListener =
@@ -62,7 +109,6 @@ public class InputScores extends FragmentActivity {
                 @Override
                 public void onPageScrollStateChanged(int state) {
                     //Called when the scroll state changes.
-                    Log.d("Scrolli testi", "Toimiii");
                 }
 
                 @Override
@@ -76,24 +122,40 @@ public class InputScores extends FragmentActivity {
                 @Override
                 public void onPageSelected(int position) {
                     //This method will be invoked when a new page becomes selected.
-                    Log.d("Scrolli testi", "UUUUSI SIVU");
-                    Iterator<Player> it = SelectPlayers.players.iterator();
-                    while(it.hasNext()){
-                        it.next().resetCount();
-                    }
+                    invalidateOptionsMenu();
+                    updatePages();
+                    saveScores();
                 }
             };
+    public void updatePages(){
+        int currentPage = mPager.getCurrentItem();
+        pages[1] = pages[0];
+        pages[0] = currentPage;
+        Log.e("PAGES", Arrays.toString(pages));
+    }
 
+    public void saveScores(){
 
-        // tuloksien syöttäminen
+        Iterator<Player> it = SelectPlayers.players.iterator();
+        int i = 0;
+        int[] points = new int[SelectPlayers.players.size()];
+        while (it.hasNext()) {
+            Player pelaaja = it.next();
+            points[i] = pelaaja.getCount();
+            pelaaja.resetCount();
+            i++;
+        }
 
-    public void onPageScrollStateChanged(int state, String name, Integer par) {
-        ContentValues values=new ContentValues(3);
-        values.put("name",name);
-        db.insert(DATABASE_PLAYERS, null, values);
-
-        values.put("holeScore", par);
-        db.insert(DATABASE_SCORES, null, values);
+        //updating points only if moving to next page
+        if (pages[0] >= pages[1]) {
+            //add last page points
+            try{
+                scores.get(pages[1]);
+            }catch ( IndexOutOfBoundsException e ) {
+                scores.add( pages[1], points );
+            }
+            Toast.makeText(getApplicationContext(), "Pisteet tallennettu", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
