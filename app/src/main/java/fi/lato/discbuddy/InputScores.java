@@ -135,6 +135,8 @@ public class InputScores extends FragmentActivity {
     }
 
     public void saveScores(){
+        Log.d("size",mAdapter.getCount()+"");
+        Log.d("page",mPager.getCurrentItem()+"");
 
         Iterator<Player> it = SelectPlayers.players.iterator();
         int i = 0;
@@ -147,14 +149,21 @@ public class InputScores extends FragmentActivity {
         }
 
         //updating points only if moving to next page
-        if (pages[0] >= pages[1]) {
+        if (pages[0] > pages[1]) {
             //add last page points
             try{
-                scores.get(pages[1]);
+                scores.set(pages[1],points);
+                Toast.makeText(getApplicationContext(), "Sivun"+(pages[1]+1)+"pisteet päivitetty", Toast.LENGTH_SHORT).show();
             }catch ( IndexOutOfBoundsException e ) {
-                scores.add( pages[1], points );
+                Log.e("Error", e.toString());
+            } finally{
+                scores.add(pages[1],points);
+                Toast.makeText(getApplicationContext(), "Sivun"+(pages[1]+1)+"pisteet lisätty", Toast.LENGTH_SHORT).show();
             }
-            Toast.makeText(getApplicationContext(), "Pisteet tallennettu", Toast.LENGTH_SHORT).show();
+
+        }else if (mPager.getCurrentItem() == mAdapter.getCount() - 1) {
+            scores.add(pages[1],points);
+            Toast.makeText(getApplicationContext(), "Viimeinen lisätty", Toast.LENGTH_SHORT).show();
         }
     }
 
