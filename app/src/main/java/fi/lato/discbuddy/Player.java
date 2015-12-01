@@ -6,10 +6,12 @@ package fi.lato.discbuddy;
 public class Player {
     private String name;
     private int count;
+    private int sum;
 
     public Player(String name, int count) {
         this.name = name;
         this.count = count;
+        this.sum = 0;
     }
 
     public String getName() {
@@ -24,12 +26,16 @@ public class Player {
         return count;
     }
 
+    public int getSum() {return sum;}
+
     public void addCount() {
         this.count++;
+        this.sum++;
     }
 
     public void decreaseCount() {
         this.count--;
+        this.sum--;
     }
 
     public void resetCount() { this.count = 0; }

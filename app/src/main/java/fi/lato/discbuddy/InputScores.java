@@ -83,7 +83,6 @@ public class InputScores extends FragmentActivity {
                 Intent intent = new Intent(this, ScoreCard.class);
                 intent.putExtra("scores", scores);
                 startActivity(intent);
-                Log.d("scores",scores.size()+"");
                 return true;
 
             case R.id.action_previous:
@@ -132,13 +131,9 @@ public class InputScores extends FragmentActivity {
         int currentPage = mPager.getCurrentItem();
         pages[1] = pages[0];
         pages[0] = currentPage;
-        Log.e("PAGES", Arrays.toString(pages));
     }
 
     public void saveScores(){
-        Log.d("size",mAdapter.getCount()+"");
-        Log.d("page",mPager.getCurrentItem()+"");
-
         Iterator<Player> it = SelectPlayers.players.iterator();
         int i = 0;
         int[] points = new int[SelectPlayers.players.size()];
@@ -151,11 +146,8 @@ public class InputScores extends FragmentActivity {
 
         try{
             scores.set(pages[1],points);
-            Toast.makeText(getApplicationContext(), "Sivun"+(pages[1]+1)+"pisteet päivitetty", Toast.LENGTH_SHORT).show();
         }catch ( IndexOutOfBoundsException e ) {
-            Log.e("Add Scores", e.toString());
             scores.add(pages[1], points);
-            Toast.makeText(getApplicationContext(), "Sivun"+(pages[1]+1)+"pisteet lisätty", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -173,7 +165,7 @@ public class InputScores extends FragmentActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return new ScoresFragment();
+            return ScoresFragment.newInstance(position+1);
         }
 
         @Override
@@ -185,15 +177,7 @@ public class InputScores extends FragmentActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
-            }
-            return null;
+            return "Hole"+position;
         }
     }
 }
