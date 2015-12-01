@@ -28,11 +28,13 @@ public class ScoreCard extends Activity {
         hole.setText("hole");
         nameRow.addView(hole);
         //add player names to table
+
         for(Player player : SelectPlayers.players){
 
             TextView t = new TextView(this);
             t.setText(player.getName());
             nameRow.addView(t);
+            Log.v("player sum", player.getSum()+"");
 
         }
         //table.addView(nameRow);
@@ -43,17 +45,36 @@ public class ScoreCard extends Activity {
         int j = 1;
         while (it.hasNext()){
             int[] score = it.next();
-            Log.d("luvut", Arrays.toString(score));
             TableRow row = new TableRow(this);
             for(int i = -1;i<score.length; i++){
                 TextView t = new TextView(this);
                 if(i==-1)t.setText(j+"");
-                else t.setText(score[i] + "");
+                else {
+                    t.setText(score[i] + "");
+                    switch (score[i]){
+                        case -1:
+                            t.setBackgroundColor(0xFF00FF00);
+                            break;
+                        case 1:
+                            t.setBackgroundColor(0xFFFF0000);
+                    }
+
+                }
                 row.addView(t);
             }
             table.addView(row);
             j++;
         }
+        TableRow rowSum = new TableRow(this);
+        TextView t = new TextView(this);
+        t.setText("Kissa");
+        rowSum.addView(t);
+        for(Player player : SelectPlayers.players){
+            TextView tv = new TextView(this);
+            tv.setText(player.getSum()+"");
+            rowSum.addView(tv);
+        }
+        table.addView(rowSum);
     }
     @Override
     public void onBackPressed() {
