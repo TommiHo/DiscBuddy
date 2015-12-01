@@ -124,7 +124,7 @@ public class InputScores extends FragmentActivity {
                     //This method will be invoked when a new page becomes selected.
                     invalidateOptionsMenu();
                     updatePages();
-                    if (pages[0] > pages[1] )saveScores();
+                    saveScores();
 
                 }
             };
@@ -133,6 +133,12 @@ public class InputScores extends FragmentActivity {
         pages[1] = pages[0];
         pages[0] = currentPage;
         Log.e("PAGES", Arrays.toString(pages));
+    }
+    public void updateHole(){
+        int currentHole = pages[0]+1;
+        final TextView txtValue = (TextView) findViewById(R.id.holenumber);
+        txtValue.setText(Integer.toString(currentHole));
+        Log.e("moi", txtValue.getText().toString());
     }
 
     public void saveScores(){
@@ -149,13 +155,24 @@ public class InputScores extends FragmentActivity {
             i++;
         }
 
-        try{
-            scores.set(pages[1],points);
-            Toast.makeText(getApplicationContext(), "Sivun"+(pages[1]+1)+"pisteet päivitetty", Toast.LENGTH_SHORT).show();
-        }catch ( IndexOutOfBoundsException e ) {
-            Log.e("Add Scores", e.toString());
-            scores.add(pages[1], points);
-            Toast.makeText(getApplicationContext(), "Sivun"+(pages[1]+1)+"pisteet lisätty", Toast.LENGTH_SHORT).show();
+        //updating points only if moving to next page
+        if (pages[0] > pages[1]) {
+            //add last page points
+            try{
+
+                scores.set(pages[1],points);
+                Toast.makeText(getApplicationContext(), "Sivun"+(pages[1]+1)+"pisteet päivitetty", Toast.LENGTH_SHORT).show();
+            }catch ( IndexOutOfBoundsException e ) {
+                Log.e("Error", e.toString());
+            } finally{
+                scores.add(pages[1],points);
+                Toast.makeText(getApplicationContext(), "Sivun"+(pages[1]+1)+"pisteet lisätty", Toast.LENGTH_SHORT).show();
+
+            }
+
+        }else if (mPager.getCurrentItem() == mAdapter.getCount() - 1) {
+            scores.add(pages[1],points);
+            Toast.makeText(getApplicationContext(), "Viimeinen lisätty", Toast.LENGTH_SHORT).show();
         }
     }
 
