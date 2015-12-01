@@ -28,7 +28,7 @@
 
     //scorecard view
     <string name="scorecardheading">Scorecard</string>
-
+    <string name="action_home">Home</string>
     <string name="action_add">add</string>
 
 

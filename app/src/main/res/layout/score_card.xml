@@ -12,5 +12,13 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/scoresTable"></TableLayout>
+        android:id="@+id/scoresTable">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00ffa7"
+            android:id="@+id/nameRow"></TableRow>
+    </TableLayout>
+
 </LinearLayout>

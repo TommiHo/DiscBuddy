@@ -1,8 +1,11 @@
 package fi.lato.discbuddy;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -20,11 +23,11 @@ public class ScoreCard extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.score_card);
         TableLayout table = (TableLayout) findViewById(R.id.scoresTable);
-        TableRow nameRow = new TableRow(this);
+        TableRow nameRow = (TableRow) findViewById(R.id.nameRow);
         TextView hole = new TextView(this);
         hole.setText("hole");
         nameRow.addView(hole);
-
+        //add player names to table
         for(Player player : SelectPlayers.players){
 
             TextView t = new TextView(this);
@@ -32,7 +35,8 @@ public class ScoreCard extends Activity {
             nameRow.addView(t);
 
         }
-        table.addView(nameRow);
+        //table.addView(nameRow);
+        //add scores to table
         Bundle extras = getIntent().getExtras();
         ArrayList scores = extras.getIntegerArrayList("scores");
         Iterator<int[]> it = scores.iterator();
@@ -50,7 +54,27 @@ public class ScoreCard extends Activity {
             table.addView(row);
             j++;
         }
+    }
+    @Override
+    public void onBackPressed() {
+        // Navigate main-activity.
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_scorecard, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                onBackPressed();
+                return true;
+        }
 
-
+        return super.onOptionsItemSelected(item);
     }
 }

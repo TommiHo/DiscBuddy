@@ -35,12 +35,13 @@ public class SelectPlayers extends Activity implements AddPlayerDialogFragment.D
     private SQLiteDatabase db;
     private Cursor cursor;
     private ListView listView;
-    public static ArrayList<Player> players = new ArrayList<Player>();
+    public static ArrayList<Player> players;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_players);
+        players = new ArrayList<Player>();
 
         // update text views to show data
         TextView textView = (TextView) findViewById(R.id.courseTextView);
