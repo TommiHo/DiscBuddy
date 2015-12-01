@@ -5,26 +5,21 @@ import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by tommi on 10.11.2015.
@@ -44,7 +39,7 @@ public class SelectPlayers extends Activity implements AddPlayerDialogFragment.D
         players = new ArrayList<Player>();
 
         // update text views to show data
-        TextView textView = (TextView) findViewById(R.id.courseTextView);
+        TextView textView = (TextView) findViewById(R.id.courseName);
         textView.setText(SelectCourse.course.toString());
 
         // find list view

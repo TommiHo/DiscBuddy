@@ -29,7 +29,7 @@ public class ScoresFragment extends Fragment {
         page = getArguments().getInt("somePage",0);
         View rootView = inflater.inflate(R.layout.input_scores, container, false);
         listView = (ListView) rootView.findViewById(R.id.scores_listView);
-        TextView courseName = (TextView) rootView.findViewById(R.id.courseTextView);
+        TextView courseName = (TextView) rootView.findViewById(R.id.courseName);
         TextView holeNumber = (TextView) rootView.findViewById(R.id.holenumber);
         courseName.setText(SelectCourse.course);
         holeNumber.setText(page+"");

@@ -2,14 +2,18 @@ package fi.lato.discbuddy;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -18,8 +22,12 @@ import java.util.Iterator;
  * Created by Lasse on 27.11.2015.
  */
 public class ScoreCard extends Activity {
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.score_card);
         TableLayout table = (TableLayout) findViewById(R.id.scoresTable);
@@ -28,13 +36,15 @@ public class ScoreCard extends Activity {
         hole.setText("hole");
         nameRow.addView(hole);
         //add player names to table
+        TextView tekstView = (TextView) findViewById(R.id.courseName);
+        tekstView.setText(SelectCourse.course);
 
         for(Player player : SelectPlayers.players){
 
             TextView t = new TextView(this);
             t.setText(player.getName());
             nameRow.addView(t);
-            Log.v("player sum", player.getSum()+"");
+            Log.v("player sum", player.getSum() + "");
 
         }
         //table.addView(nameRow);
@@ -67,7 +77,7 @@ public class ScoreCard extends Activity {
         }
         TableRow rowSum = new TableRow(this);
         TextView t = new TextView(this);
-        t.setText("Kissa");
+        t.setText("Total: ");
         rowSum.addView(t);
         for(Player player : SelectPlayers.players){
             TextView tv = new TextView(this);

@@ -6,8 +6,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Täällä scorecard"
-        android:id="@+id/textView5" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/courseName" />
 
     <TableLayout
         android:layout_width="match_parent"
