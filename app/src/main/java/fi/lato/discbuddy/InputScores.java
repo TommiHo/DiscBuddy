@@ -124,7 +124,8 @@ public class InputScores extends FragmentActivity {
                     //This method will be invoked when a new page becomes selected.
                     invalidateOptionsMenu();
                     updatePages();
-                    saveScores();
+                    if (pages[0] > pages[1] )saveScores();
+
                 }
             };
     public void updatePages(){
@@ -148,22 +149,13 @@ public class InputScores extends FragmentActivity {
             i++;
         }
 
-        //updating points only if moving to next page
-        if (pages[0] > pages[1]) {
-            //add last page points
-            try{
-                scores.set(pages[1],points);
-                Toast.makeText(getApplicationContext(), "Sivun"+(pages[1]+1)+"pisteet päivitetty", Toast.LENGTH_SHORT).show();
-            }catch ( IndexOutOfBoundsException e ) {
-                Log.e("Error", e.toString());
-            } finally{
-                scores.add(pages[1],points);
-                Toast.makeText(getApplicationContext(), "Sivun"+(pages[1]+1)+"pisteet lisätty", Toast.LENGTH_SHORT).show();
-            }
-
-        }else if (mPager.getCurrentItem() == mAdapter.getCount() - 1) {
-            scores.add(pages[1],points);
-            Toast.makeText(getApplicationContext(), "Viimeinen lisätty", Toast.LENGTH_SHORT).show();
+        try{
+            scores.set(pages[1],points);
+            Toast.makeText(getApplicationContext(), "Sivun"+(pages[1]+1)+"pisteet päivitetty", Toast.LENGTH_SHORT).show();
+        }catch ( IndexOutOfBoundsException e ) {
+            Log.e("Add Scores", e.toString());
+            scores.add(pages[1], points);
+            Toast.makeText(getApplicationContext(), "Sivun"+(pages[1]+1)+"pisteet lisätty", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -21,6 +21,9 @@ public class ScoreCard extends Activity {
         setContentView(R.layout.score_card);
         TableLayout table = (TableLayout) findViewById(R.id.scoresTable);
         TableRow nameRow = new TableRow(this);
+        TextView hole = new TextView(this);
+        hole.setText("hole");
+        nameRow.addView(hole);
 
         for(Player player : SelectPlayers.players){
 
@@ -33,16 +36,19 @@ public class ScoreCard extends Activity {
         Bundle extras = getIntent().getExtras();
         ArrayList scores = extras.getIntegerArrayList("scores");
         Iterator<int[]> it = scores.iterator();
+        int j = 1;
         while (it.hasNext()){
             int[] score = it.next();
             Log.d("luvut", Arrays.toString(score));
             TableRow row = new TableRow(this);
-            for(int i = 0;i<score.length; i++){
+            for(int i = -1;i<score.length; i++){
                 TextView t = new TextView(this);
-                t.setText(score[i] + "");
+                if(i==-1)t.setText(j+"");
+                else t.setText(score[i] + "");
                 row.addView(t);
             }
             table.addView(row);
+            j++;
         }
 
 
