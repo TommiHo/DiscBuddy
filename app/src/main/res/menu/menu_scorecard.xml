@@ -4,6 +4,6 @@
     <!-- Adds an item to the list. -->
     <item android:id="@+id/action_home"
         android:title="@string/action_home"
-        android:showAsAction="ifRoom|withText" />
+        android:showAsAction="ifRoom|withText"/>
 
 </menu>

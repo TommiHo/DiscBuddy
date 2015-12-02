@@ -2,6 +2,7 @@ package fi.lato.discbuddy;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,9 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -22,7 +26,7 @@ import java.util.Iterator;
  * Created by Lasse on 27.11.2015.
  */
 public class ScoreCard extends Activity {
-
+    private Highscore highscore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,13 @@ public class ScoreCard extends Activity {
         //add player names to table
         TextView tekstView = (TextView) findViewById(R.id.courseName);
         tekstView.setText(SelectCourse.course);
+        highscore = new Highscore();
+        highscore.saveScores();
+
+
+
+
+
 
         for(Player player : SelectPlayers.players){
 
@@ -86,6 +97,9 @@ public class ScoreCard extends Activity {
         }
         table.addView(rowSum);
     }
+
+
+
     @Override
     public void onBackPressed() {
         // Navigate main-activity.
@@ -102,10 +116,13 @@ public class ScoreCard extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_home:
+
                 onBackPressed();
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

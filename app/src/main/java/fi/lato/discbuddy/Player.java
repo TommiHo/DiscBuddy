@@ -1,9 +1,11 @@
 package fi.lato.discbuddy;
 
+import java.io.Serializable;
+
 /**
  * Created by H4273 on 24.11.2015.
  */
-public class Player {
+public class Player implements Serializable{
     private String name;
     private int count;
     private int sum;
