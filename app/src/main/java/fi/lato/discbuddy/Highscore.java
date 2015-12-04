@@ -1,6 +1,7 @@
 package fi.lato.discbuddy;
 
 import android.app.Activity;
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
@@ -17,7 +18,8 @@ import java.util.ArrayList;
  */
 public class Highscore extends Activity implements Serializable {
     private ArrayList<Player> players;
-    private final String fileName = "highscore.data";
+    private final String fileName = "highscore.txt";
+    private File path;
 
 
     public Highscore() {
@@ -30,8 +32,10 @@ public class Highscore extends Activity implements Serializable {
         // Kalojen Tallennus tiedostoon
         ObjectOutputStream output = null;
         try {
-
-            output = new ObjectOutputStream(new FileOutputStream(new File(fileName)));
+            path = Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_DOWNLOADS);
+            File file = new File(path, "/" + fileName);
+            output = new ObjectOutputStream(new FileOutputStream(file));
             output.writeObject(players);
             Log.v(String.valueOf(output), "tallennus onnistui");
         } catch (IOException ex) {
@@ -49,7 +53,10 @@ public class Highscore extends Activity implements Serializable {
     public void readScores() {
         ObjectInputStream input = null;
         try {
-            input = new ObjectInputStream(new FileInputStream(new File(fileName)));
+            path = Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_DOWNLOADS);
+            File file = new File(path, "/" + fileName);
+            input = new ObjectInputStream(new FileInputStream(file));
             players = (ArrayList<Player>) input.readObject();
         } catch (IOException ex) {
             System.out.println("Virhe tiedoston lukemisessa :" + ex);

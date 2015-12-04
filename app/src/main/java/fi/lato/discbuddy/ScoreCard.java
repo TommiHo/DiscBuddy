@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -27,7 +29,7 @@ import java.util.Iterator;
  */
 public class ScoreCard extends Activity {
     private Highscore highscore;
-
+    View score_card;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -116,7 +118,6 @@ public class ScoreCard extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_home:
-
                 onBackPressed();
                 return true;
         }
