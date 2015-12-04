@@ -14,7 +14,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     // Table Names
     private final String TABLE_PLAYERS = "players";
     private final String TABLE_COURSES = "courses";
-    private final String TABLE_HIGHSCORES = "highscores";
 
     // Player Table Columns
     private final String KEY_PLAYER_NAME = "name";
@@ -24,8 +23,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     private final String KEY_COURSE_PAR = "par";
     private final String KEY_COURSE_HOLECOUNT = "holeCount";
 
-    // highscore table columns
-    private final String KEY_HIGHSCORES_SCORE = "score";
+
 
 
 
@@ -40,11 +38,11 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         String CREATE_PLAYERS_TABLE = "CREATE TABLE "+ TABLE_PLAYERS +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_PLAYER_NAME +" TEXT);";
         String CREATE_COURSES_TABLE = "CREATE TABLE "+ TABLE_COURSES +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_COURSE_NAME +" TEXT, " + KEY_COURSE_PAR+" INTEGER, "
                 + KEY_COURSE_HOLECOUNT + " INTEGER);";
-        String CREATE_HIGHSCORES_TABLE = "CREATE TABLE "+ TABLE_HIGHSCORES +" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+ KEY_HIGHSCORES_SCORE +" INTEGER);";
+
         // create new tables
         db.execSQL(CREATE_PLAYERS_TABLE);
         db.execSQL(CREATE_COURSES_TABLE);
-        db.execSQL(CREATE_HIGHSCORES_TABLE);
+
         // create sample data
         ContentValues values = new ContentValues();
         values.put(KEY_PLAYER_NAME, "Mauno Koivisto");

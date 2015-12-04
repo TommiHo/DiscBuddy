@@ -76,7 +76,6 @@ public class Highscore extends Activity implements Serializable {
     public void alustaLista() {
         File f = new File(fileName);
         if (!f.exists()) {
-            players.add(new Player("Hauki", 1));
 
         } else {
            readScores();
