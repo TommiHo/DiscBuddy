@@ -24,8 +24,16 @@ public class MainActivity extends Activity {
     }
 
     public void startNewActivity(View view) {
-        Intent intent = new Intent(this,SelectCourse.class);
-        startActivity(intent);
+        switch (view.getId()){
+            case R.id.button:
+                Intent intent = new Intent(this,SelectCourse.class);
+                startActivity(intent);
+                break;
+            case R.id.button2:
+                Intent intent2 = new Intent(this,Highscores.class);
+                startActivity(intent2);
+                break;
+        }
     }
 
     @Override

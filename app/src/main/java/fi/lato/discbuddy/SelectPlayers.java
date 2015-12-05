@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,8 +52,6 @@ public class SelectPlayers extends Activity implements AddPlayerDialogFragment.D
         db = (new DatabaseOpenHelper(this)).getWritableDatabase();
         // get data with own made queryData method
         queryData();
-
-
     }
 
     // query data from database
@@ -121,6 +120,7 @@ public class SelectPlayers extends Activity implements AddPlayerDialogFragment.D
         db.insert("players", null, values);
         // get data again
         queryData();
+        players.clear();
     }
 
     @Override

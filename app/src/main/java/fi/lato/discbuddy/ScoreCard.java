@@ -45,20 +45,13 @@ public class ScoreCard extends Activity {
         TextView tekstView = (TextView) findViewById(R.id.courseName);
         tekstView.setText(SelectCourse.course);
         highscore = new Highscore();
-        highscore.saveScores();
-
-
-
-
-
+        highscore.saveScores(this);
 
         for(Player player : SelectPlayers.players){
-
+            highscore.addNew(player,this);
             TextView t = new TextView(this);
             t.setText(player.getName());
             nameRow.addView(t);
-            Log.v("player sum", player.getSum() + "");
-
         }
         //table.addView(nameRow);
         //add scores to table

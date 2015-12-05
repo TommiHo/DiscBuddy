@@ -1,6 +1,7 @@
 package fi.lato.discbuddy;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
@@ -18,26 +19,26 @@ import java.util.ArrayList;
  */
 public class Highscore extends Activity implements Serializable {
     private ArrayList<Player> players;
-    private final String fileName = "highscore.txt";
+    private final String fileName = "highscore.data";
     private File path;
-
 
     public Highscore() {
         this.players = new ArrayList();
-        alustaLista();
+        players.add(new Player("jussi",100));
+        //alustaLista();
     }
 
     // tallennetaan highscorelista tiedostoon
-    public  void saveScores() {
-        // Kalojen Tallennus tiedostoon
+    public  void saveScores(Context ctx) {
+        // Pelaajien Tallennus tiedostoon
         ObjectOutputStream output = null;
         try {
-            path = Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_DOWNLOADS);
+            path = ctx.getFilesDir();
             File file = new File(path, "/" + fileName);
             output = new ObjectOutputStream(new FileOutputStream(file));
-            output.writeObject(players);
+            output.writeObject(SelectPlayers.players);
             Log.v(String.valueOf(output), "tallennus onnistui");
+            Log.v("Testi", path.toString());
         } catch (IOException ex) {
             Log.v(String.valueOf(ex), "Virhe tiedostoon kirjoittamisessa");
         } finally {
@@ -45,16 +46,15 @@ public class Highscore extends Activity implements Serializable {
                 if (output != null) output.close();
 
             } catch (IOException ex) {
-                Log.v(String.valueOf(ex),"Virhe tiedoston sulkemissa");
+                Log.v(String.valueOf(ex), "Virhe tiedoston sulkemissa");
             }
         }
     }
     // Highscoren Lukeminen tiedostosta
-    public void readScores() {
+    public void readScores(Context ctx) {
         ObjectInputStream input = null;
         try {
-            path = Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_DOWNLOADS);
+            path = ctx.getFilesDir();
             File file = new File(path, "/" + fileName);
             input = new ObjectInputStream(new FileInputStream(file));
             players = (ArrayList<Player>) input.readObject();
@@ -72,20 +72,27 @@ public class Highscore extends Activity implements Serializable {
         System.out.println("Highscore lista luettu uudelleen tiedostosta.");
         //tulosta();
     }
-    // luetaan tiedostosta, tai luodaan oletuskalat
-    public void alustaLista() {
+
+    public void addNew(Player player,Context ctx) {
+        players.add(player);
+        saveScores(ctx);
+    }
+
+    // luetaan tiedostosta
+    public void alustaLista(Context ctx) {
         File f = new File(fileName);
         if (!f.exists()) {
 
         } else {
-           readScores();
+           readScores(ctx);
         }
 
         tulosta();
     }
     public void tulosta() {
-        for (Player k : players) {
-            System.out.println(k);
+        Log.d("tulostetaan....", "ja noin");
+        for (Player p : players) {
+            Log.d("pelaaja", p.getName());
         }
     }
 }
