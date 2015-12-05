@@ -79,7 +79,7 @@ public class Highscore extends Activity implements Serializable {
     }
 
     // luetaan tiedostosta
-    public void alustaLista(Context ctx) {
+    public void formatList(Context ctx) {
         File f = new File(fileName);
         if (!f.exists()) {
 
@@ -87,9 +87,9 @@ public class Highscore extends Activity implements Serializable {
            readScores(ctx);
         }
 
-        tulosta();
+        print();
     }
-    public void tulosta() {
+    public void print() {
         Log.d("tulostetaan....", "ja noin");
         for (Player p : players) {
             Log.d("pelaaja", p.getName());

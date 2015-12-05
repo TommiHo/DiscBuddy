@@ -14,7 +14,7 @@ public class Highscores extends Activity {
         setContentView(R.layout.activity_highscores);
         highscore = new Highscore();
         highscore.readScores(this);
-        highscore.tulosta();
+        highscore.print();
 
 
     }
