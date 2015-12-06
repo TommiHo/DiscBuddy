@@ -33,7 +33,6 @@ public class ScoreCard extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.score_card);
         TableLayout table = (TableLayout) findViewById(R.id.scoresTable);
@@ -53,7 +52,7 @@ public class ScoreCard extends Activity {
             t.setText(player.getName());
             nameRow.addView(t);
         }
-        //table.addView(nameRow);
+
         //add scores to table
         Bundle extras = getIntent().getExtras();
         ArrayList scores = extras.getIntegerArrayList("scores");
@@ -93,8 +92,6 @@ public class ScoreCard extends Activity {
         table.addView(rowSum);
     }
 
-
-
     @Override
     public void onBackPressed() {
         // Navigate main-activity.
@@ -117,6 +114,4 @@ public class ScoreCard extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }

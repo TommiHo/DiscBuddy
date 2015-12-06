@@ -7,13 +7,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -23,7 +20,6 @@ public class InputScores extends FragmentActivity {
     private ListView scores_listView;
     public static ArrayList<int[]> scores = new ArrayList<int[]>();
     private int[] pages = {0,0};
-
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -127,6 +123,7 @@ public class InputScores extends FragmentActivity {
 
                 }
             };
+
     public void updatePages(){
         int currentPage = mPager.getCurrentItem();
         pages[1] = pages[0];
@@ -173,7 +170,6 @@ public class InputScores extends FragmentActivity {
             int count = SelectCourse.holeCount;
             return count;
         }
-
 
         @Override
         public CharSequence getPageTitle(int position) {

@@ -5,7 +5,6 @@ package fi.lato.discbuddy;
         import android.database.sqlite.SQLiteDatabase;
         import android.database.sqlite.SQLiteOpenHelper;
 
-
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
     // Database Info
     private static final String DATABASE_NAME = "LaTo_database";
@@ -22,10 +21,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     private final String KEY_COURSE_NAME = "name";
     private final String KEY_COURSE_PAR = "par";
     private final String KEY_COURSE_HOLECOUNT = "holeCount";
-
-
-
-
 
     public DatabaseOpenHelper(Context context) {
         // Context, database name, optional cursor factory, database version
@@ -60,8 +55,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         values.put(KEY_COURSE_NAME, "Keljonkangas");
         values.put(KEY_COURSE_HOLECOUNT, 9);
         db.insert(TABLE_COURSES, null, values);
-
-
     }
 
     @Override

@@ -13,6 +13,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by tommi on 2.12.2015.
@@ -78,6 +80,10 @@ public class Highscore extends Activity implements Serializable {
         saveScores(ctx);
     }
 
+    public ArrayList getList(){
+        return this.players;
+    }
+
     // luetaan tiedostosta
     public void formatList(Context ctx) {
         File f = new File(fileName);
@@ -93,6 +99,22 @@ public class Highscore extends Activity implements Serializable {
         Log.d("tulostetaan....", "ja noin");
         for (Player p : players) {
             Log.d("pelaaja", p.getName());
+        }
+    }
+
+    // Pelaajien järjestäminen (sort) uudelleen
+    public void reArrange(Context ctx) {
+        Collections.sort(players, new SortPlayers());
+        System.out.println("Highscorelista on järjestetty pisteiden mukaan.");
+        saveScores(ctx);
+    }
+
+    class SortPlayers implements Comparator<Player> {
+        @Override
+        public int compare(Player p1, Player p2) {
+            if (p1.getSum() < p2.getSum()) return -1;
+            if (p2.getSum() > p1.getSum()) return 1;
+            return 0;
         }
     }
 }
