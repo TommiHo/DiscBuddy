@@ -75,6 +75,7 @@ public class SelectPlayers extends Activity implements AddPlayerDialogFragment.D
     public void startGame(View view) {
         Intent intent = new Intent(SelectPlayers.this, InputScores.class);
         startActivity(intent);
+        finish();
     }
 
     public void itemClicked(View v) {

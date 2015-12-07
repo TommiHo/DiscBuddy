@@ -29,7 +29,7 @@ import java.util.Iterator;
  */
 public class ScoreCard extends Activity {
     private Highscore highscore;
-    View score_card;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -97,6 +97,7 @@ public class ScoreCard extends Activity {
         // Navigate main-activity.
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

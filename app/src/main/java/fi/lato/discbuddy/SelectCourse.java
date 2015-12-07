@@ -62,6 +62,7 @@ public class SelectCourse extends Activity implements AddCourseDialogFragment.Di
                 holeCount = cursor.getInt(cursor.getColumnIndex("holeCount"));
                 // start a new activity
                 startActivity(intent);
+                finish();
             }
         });
 

@@ -79,6 +79,7 @@ public class InputScores extends FragmentActivity {
                 Intent intent = new Intent(this, ScoreCard.class);
                 intent.putExtra("scores", scores);
                 startActivity(intent);
+                finish();
                 return true;
 
             case R.id.action_previous:
